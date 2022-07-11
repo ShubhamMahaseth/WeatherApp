@@ -5,6 +5,7 @@ import {
   ImageBackground,
   TextInput,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import {styles} from './style';
 import moment from 'moment';
@@ -100,7 +101,7 @@ const Screen = () => {
   };
   let weatherTime = moment(new Date()).format('h:mm A - dddd, DD MMMM yyyy');
   let wind = (dataWeather.data?.wind?.speed * 3).toFixed(2);
-  console.log(dataWeather.data);
+  console.log(Dimensions.get('window').height);
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -128,13 +129,16 @@ const Screen = () => {
           {indicator ? <ActivityIndicator size="large" color="white" /> : null}
           {dataWeather.data ? (
             <>
-              <View style={{flexDirection: 'column'}}>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  marginTop: 130,
+                }}>
                 <Text
                   style={{
                     color: 'white',
                     fontSize: 35,
                     marginLeft: 20,
-                    marginTop: 130,
                   }}>
                   {dataWeather.data ? dataWeather.data.name : null}
                 </Text>
@@ -143,18 +147,17 @@ const Screen = () => {
                     color: 'white',
                     fontSize: 18,
                     marginLeft: 20,
-                    //   marginTop: 220,
                   }}>
                   {dataWeather.data ? weatherTime : null}
                 </Text>
               </View>
-              <View>
+
+              <View style={{marginTop: Dimensions.get('window').height - 500}}>
                 <Text
                   style={{
                     color: 'white',
                     fontSize: 70,
                     marginLeft: 20,
-                    marginTop: 320,
                     fontFamily: 'Lato-Light',
                   }}>
                   {dataWeather.data ? dataWeather?.data?.main?.temp : null}{' '}
@@ -168,7 +171,6 @@ const Screen = () => {
                       color: 'white',
                       fontSize: 20,
                       marginLeft: 8,
-                      // marginTop: 10,
                     }}>
                     {dataWeather.data
                       ? dataWeather.data?.weather[0].main
@@ -179,7 +181,6 @@ const Screen = () => {
                   style={{
                     borderBottomWidth: 1,
                     borderBottomColor: 'rgba(255,255,255,0.7)',
-
                     margin: 15,
                   }}></View>
                 <View
